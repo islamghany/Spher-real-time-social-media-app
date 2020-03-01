@@ -104,6 +104,13 @@ const deletePost=async (req,res,next)=>{
 		const error = new HttpError('could not find a post with a givern id ',404);
 		return next(error);
 	}
+   if (post.creator.id !== req.userData._id) {
+    const error = new HttpError(
+      'You are not allowed to delete this post.',
+      401
+    );
+    return next(error);
+  }
 	try {
 		 console.log(2);
     const sess = await mongoose.startSession();
