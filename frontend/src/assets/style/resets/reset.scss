@@ -1,0 +1,144 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  outline: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+html {
+    // This defines what 1rem is
+    font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+
+    @include respond(tab-land) { // width < 1200?
+        font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+    }
+
+    @include respond(tab-port) { // width < 900?
+        font-size: 50%; //1 rem = 8px, 8/16 = 50%
+    }
+    
+    @include respond(big-desktop) {
+        font-size: 75%; //1rem = 12, 12/16
+    }
+}
+
+.wrapper{
+   width: 100%;
+   max-width:1350px;
+   margin:0 auto;
+}
+.screen{
+  min-height: 100vh;
+}
+
+.show {
+  transform: translateX(0) !important;
+}
+.hide {
+  transform: translateX(-100%) !important;
+}
+.sit-next {
+  left: 30.5rem !important;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.divider{
+  margin:2rem 0;
+}
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; 
+  overflow-x: hidden !important;
+  min-height: 100vh; 
+  line-height: 1.6;
+}
+ul {
+  list-style: none;
+}
+img {
+  //max-width: 100%;
+  //display: block;
+}
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.headingSub {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.65px;
+}
+.p {
+  font-weight: 300;
+  font-size: 1.3rem;
+}
+.text-left {
+  text-align: left !important;
+}
+.block {
+  display: block !important;
+  width: 100% !important;
+}
+.mg-none {
+  margin: 0 !important;
+}
+.mg-rt-1 {
+  margin-right: 1rem !important;
+}
+.mg-lf-1 {
+  margin-left: 1rem !important;
+}
+.mg-lf-0{
+   margin-left: 0rem !important;
+}
+.mg-tp-2 {
+  margin-top: 2rem !important;
+}
+.mg-tp-5 {
+  margin-top: 5rem !important;
+}
+.mg-tp-10 {
+  margin-top: 10rem !important;
+}
+
+img {
+  max-width: 100%;
+}
+.hidden {
+  z-index: -1 !important;
+}
+.none {
+  display: none;
+}
+hr {
+  border: 1px solid #d5d2d3 !important;
+}
+.invalid {
+  font-size: 1.4rem;
+ // color: $danger;
+  margin-left: 0.2rem;
+}
+
+.error-message{
+  line-height: 2rem;
+  font-size:1.4rem;
+  color:$danger;
+  .message{
+    margin-left: .8rem;
+    text-transform: capitalize;
+  }
+}
+.loading {
+  height: 100vh;
+  @include flex();
+}
+

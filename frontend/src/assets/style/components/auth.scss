@@ -1,0 +1,94 @@
+.form {
+    width: 100%;
+
+    &__container {
+        @include flex();
+        flex-direction: column;
+    }
+
+    &__heading {
+        margin-bottom: 2rem;
+
+        h3 {
+            font-size: 3.2rem;
+            font-weight: 400;
+            color: $fairuz;
+            font-family: 'lato';
+            line-height: 1.13;
+            text-transform: capitalize;
+        }
+
+        &.argon {
+            color: $argon;
+
+            h3 {
+                color: $argon;
+            }
+        }
+    }
+
+    &__body {
+        width: 40rem;
+        box-shadow: -10px -10px 30px 0 #fff, 10px 10px 30px 0 #aeaec082;
+        border-radius: 2rem;
+        padding: 3.4rem 3rem;
+        margin: 0 auto;
+
+        &.big {
+            min-width: 60rem;
+            margin: 0 auto;
+        }
+    }
+
+    &__unit {
+        margin: 2rem 0;
+    }
+
+    &__error {
+        color: #BF212E;
+        font-size: 1.4rem;
+        text-transform: capitalize;
+        margin-top: .7rem;
+        margin-left: 1rem;
+    }
+
+    &__input {
+        height: 4rem;
+        width: 100%;
+        border: none;
+        border-radius: .5rem;
+        font-size: 1.5rem;
+        line-height: 1.5;
+        padding: 0 1rem;
+        color: $fairuz;
+        appearance: none;
+        box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+
+    }
+
+    textarea {
+        box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+        border-radius: .5rem;
+    }
+
+    &__else {
+        margin: 1rem auto;
+
+        p {
+            font-family: 'lato';
+            font-size: 1.4rem;
+            text-transform: capitalize;
+            color: $argon;
+            text-align: center;
+
+            a {
+                color: $info;
+
+                &:hover {
+                    color: $link;
+                }
+
+            }
+        }
+    }
+}

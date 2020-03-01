@@ -1,0 +1,31 @@
+body{
+	background:#f0f0f3 ;
+}
+.main{
+    width: 100%;
+}
+ textarea{
+    background-color: #fff;
+    border: none;
+    color: #363636;
+    height: 18rem;
+    min-height: 10rem;
+    max-height: 30rem;
+    margin: 0;
+    -webkit-appearance: none;
+    tap-highlight-color: rgba(255,255,255,0);
+    padding: .78571429em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    outline: 0;
+    color: rgba(0,0,0,.87);
+    width: 100%;
+    -webkit-box-shadow: 0 0 0 0 transparent inset;
+    box-shadow: 0 0 0 0 transparent inset;
+    -webkit-transition: color .1s ease,border-color .1s ease;
+    transition: color .1s ease,border-color .1s ease;
+    font-size: 1.6rem;;
+    line-height: 1.2857;
+    resize: vertical;
+    vertical-align: top;
+  }

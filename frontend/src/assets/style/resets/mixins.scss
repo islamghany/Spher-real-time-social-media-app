@@ -1,0 +1,317 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    } // 600px
+  }
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    } //900px
+  }
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      @content;
+    } //1200px
+  }
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    } //1800px
+  }
+  @if $breakpoint == hover {
+    @media only screen and (hover: none) {
+      @content;
+    } // phones dose't have  hover => handle that here
+  }
+  @if $breakpoint == not-phone {
+    @media only screen and (min-width: 37.5em) {
+      @content;
+    } //1800px
+  } @else {
+    @media only screen and (max-width: #{$breakpoint}) {
+      @content;
+    } //special case
+  }
+}
+// @mixin respond($breakpoint) {
+//     @if $breakpoint == phone {
+//         @media only screen and (max-width: 37.5em) { @content };    //600px
+//     }
+//     @if $breakpoint == tab-port {
+//         @media only screen and (max-width: 56.25em) { @content };     //900px
+//     }
+//     @if $breakpoint == tab-land {
+//         @media only screen and (max-width: 75em) { @content };    //1200px
+//     }
+//     @if $breakpoint == big-desktop {
+//         @media only screen and (min-width: 112.5em) { @content };    //1800
+//     }
+// }
+
+// ut
+@mixin flex($justify: center, $align: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin message($headBg, $headCl, $contBg, $contCl) {
+  border: 1px solid $headBg;
+  .message__header {
+    background: $headBg;
+    color: $headCl;
+  }
+  .message__content {
+    background: $contBg;
+    color: $contCl;
+  }
+}
+
+@keyframes wobble {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  15% {
+    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+  }
+
+  30% {
+    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+  }
+
+  45% {
+    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+  }
+
+  60% {
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+  }
+
+  75% {
+    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.wobble {
+  z-index: 1 !important;
+  visibility: visible !important;
+  .container__model {
+    animation: wobble 0.6s ease;
+  }
+}
+
+
+// Buttons
+@mixin outlined($main,$secondary){
+  border: 1px solid #{$main}3b;
+  color: $main;
+   &:hover{
+       background:$main;
+      color:$secondary;
+      box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+      }
+}
+@mixin contained($main,$secondary,$back){
+  border:none;
+  color:$secondary;
+  background:$main;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+  &:hover{
+    background:$back;
+  }
+}
+@mixin cartoon($main , $sub:#3e3e3e){
+  padding:1rem 1.5rem;
+  background:$main;
+  font-weight:700;
+  color: $sub;
+             box-shadow: 1px 1px #3e3e3e, 2px 2px #3e3e3e, 3px 3px #3e3e3e, 4px 4px #3e3e3e, 5px 5px #3e3e3e, 6px 6px #3e3e3e, 7px 7px #3e3e3e, 8px 8px #3e3e3e;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25);
+&::before{
+    content:'';
+    position:absolute;
+    top:.4rem;
+    left:.4rem;
+    width:1.5rem;
+    height:2rem;
+    border-top:2px solid #3e3e3e;
+    border-left:2px solid #3e3e3e;
+    opacity:.5;
+    transition:all .3s;
+  } 
+  &:hover {
+    &::before{
+      content:'';
+    width:4.5rem;
+    height:0rem;
+    }
+  }
+} 
+@mixin contained1($main,$secondary){
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  padding:1rem 2rem;
+  background:$main;
+  color:$secondary;
+  border:none;
+  text-transform:uppercase;
+  font-size:1.4rem;
+  font-weight:400;
+  line-height:1.5;
+  display:inline-flex;
+  &:hover{
+    background: darken($main, 10%);
+    transform: translateY(-1px);
+  }
+}
+@mixin iconed($main, $secondary, $back, $icon) {
+  border: none;
+  color: $secondary;
+  background: $main;
+  padding: 1.5rem 2rem;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  &:hover {
+    background: $back;
+  }
+  margin-left: 3.3rem;
+  border-radius: 0 4px 4px 0;
+  &::before {
+    content: $icon;
+    font-family: "FontAwesome";
+    background: $back;
+    position: absolute;
+    padding: 1.5rem 1rem;
+    top: 0;
+    font-size: 1.6rem;
+    right: 100%;
+
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    border-radius: 4px 0 0 4px;
+  }
+}
+
+@mixin wave($main,$text){
+    font-size:1.4rem;
+  min-width: 64px;
+  padding:1rem 2rem;
+    border: 1px solid;
+  text-transform:uppercase;
+    display: inline-block;
+    padding:1.5rem 4rem;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem;
+    border: none;
+    cursor: pointer;
+    background-color: $main;
+    color: $text;
+    &::after{
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .4s;
+       background-color: $main;
+  }
+&:hover{
+    transform: translateY(-3px);
+   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    &::after {
+         transform: scaleX(1.4) scaleY(1.6);
+         opacity: 0;
+     }
+  }
+   
+   &:active,
+   &:focus {
+     outline: none;
+     transform: translateY(-1px);
+     box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+ }
+  
+}
+@mixin contained__shadow($main,$secd){
+  background:$main;
+    padding:2rem 9rem;
+    font-size:1.7rem;
+    box-shadow: 6px 6px 0 0 #{$main}3b;
+    border:none;
+    border-radius:11px;
+    color:$secd;
+    text-transform:capitalize;
+    cursor:pointer;
+    &:hover{
+       background:darken($main, 10%);
+    }
+}
+@mixin message($headBg, $headCl, $contBg, $contCl) {
+  border: 1px solid $headBg;
+
+  .message__header {
+    background: $headBg;
+    color: $headCl;
+  }
+
+  .message__content {
+    background: $contBg;
+    color: $contCl;
+  }
+}
+
+
+
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out both;
+}
+@keyframes heartbeat {
+  from {
+    transform: scale(1);
+    transform-origin: center center;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    transform: scale(0.91);
+    animation-timing-function: ease-in;
+  }
+  17% {
+    transform: scale(0.98);
+    animation-timing-function: ease-out;
+  }
+  33% {
+    transform: scale(0.87);
+    animation-timing-function: ease-in;
+  }
+  45% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+}
+
+.scale {
+  z-index: 1000000 !important;
+  visibility: visible !important ;
+  .model__body {
+    animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

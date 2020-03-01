@@ -1,0 +1,15 @@
+@import 'resets/variables' ;
+@import 'resets/mixins' ;
+@import 'resets/reset' ;
+@import 'components/buttons' ;
+@import 'components/page' ;
+@import 'components/auth' ;
+@import 'components/navbar';
+@import 'components/posts';
+@import 'components/model';
+
+
+
+*{
+	font-family: 'lato';
+}

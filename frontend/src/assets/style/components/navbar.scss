@@ -1,0 +1,64 @@
+.nav{
+	background: $fairuz;
+	text-align: center;
+			font-family: 'lato';
+
+	&__body{
+		padding:0 2rem;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height:5rem;
+	}
+	&__logo{
+		display: flex;
+		align-items: center;
+		font-size:2.2rem;
+		color:#fff;
+		line-height: 2.5rem;
+		.icon{
+			margin-right: 1.3rem;
+		}
+	}
+	&__list{
+		display: flex;
+	}
+	&__item{
+		&:not(:last-child){
+			margin-right: 2rem;
+		}
+	}
+	&__logout{
+	    	span{
+	    		cursor: pointer;
+	    	}
+	    }
+	&__link{
+		 color: #fff;
+		font-size: 1.6rem;
+		padding:0 .5rem;
+	    border-radius: 2rem;
+	    height:4rem;
+	    transition: all .3s;
+        @include flex();
+        .icon{
+        	svg{
+        		transition: all .3s;
+        	}
+        } 
+	    
+	}
+}
+.active{
+	    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); 
+        background: #f0f0f3;
+        color: $fairuz;
+        .icon{
+        	svg{
+        		fill:$fairuz !important;
+        		width: 3rem !important;
+        		height: 3rem !important;
+        	}
+        }
+    }

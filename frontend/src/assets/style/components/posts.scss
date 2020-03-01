@@ -1,0 +1,32 @@
+.post{
+	&__container{
+		margin-top: 10rem;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+	width:60rem;
+	box-shadow: -10px -10px 30px 0 #fff, 10px 10px 30px 0 #aeaec082, inset -10px -10px 10px 0 #aeaec038, inset 5px 5px 5px 0 #fff;
+    border-radius: 2rem;
+    padding:3rem;
+    margin:2rem;
+    &__header{
+    	display: flex;
+    	align-items: center;
+    	justify-content: space-between;
+
+    }
+    &__title{  
+    font-size:1.7rem;
+    font-weight: 300;
+    padding:2rem 0;  
+    margin-right: 1rem;  
+    }
+    &__menu{
+         cursor: pointer;
+    }
+    &__body{
+      font-size:1.4rem;
+      padding:0 2rem;
+    }
+}   
