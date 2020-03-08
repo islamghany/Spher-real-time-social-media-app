@@ -6,16 +6,14 @@ import PasswordText from "../../shared/inputs/password";
 import UserText from "../../shared/inputs/username";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import NameText from "../../shared/inputs/name";
-import { useDispatch } from "react-redux";
 
 const Signup = ({ handleAuth }) => {
   const { isLoading, error, sendRequest } = useHttpClient();
   const { register, handleSubmit, errors } = useForm();
-  const dispatch = useDispatch();
   const handleSignup = async data => {
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/users/signup",
+        process.env.REACT_APP_BACKEND_URL+"/users/signup",
         "POST",
         JSON.stringify({
           ...data
@@ -24,10 +22,12 @@ const Signup = ({ handleAuth }) => {
           "Content-Type": "application/json"
         }
       );
-
-      dispatch({ type: "SIGN_IN", payload: responseData.token });
-      dispatch({ type: "USER_DATA_IN", payload: responseData });
-      handleAuth(responseData._id, responseData.token, responseData.username);
+      handleAuth(
+        responseData._id,
+        responseData.token,
+        responseData.username,
+        responseData.img
+      );
     } catch (err) {
       console.log(err, error);
     }
@@ -54,13 +54,13 @@ const Signup = ({ handleAuth }) => {
           <PasswordText register={register} errors={errors.password} />
           <button
             disabled={isLoading}
-            className="btn btn--contained1-argon block mg-none"
+            className="btn btn--contained1-default mg-none"
           >
             {isLoading ? "Loading...." : "Signup"}
           </button>
           <div className="form__else">
             <p>
-              already have an account ? <Link to="/login">Login</Link>{" "}
+              already have an account ? <Link to="/login">Login</Link>
             </p>
           </div>
         </form>

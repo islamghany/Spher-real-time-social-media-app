@@ -57,11 +57,18 @@
   }
    &--contained1{
      &-primary{
-      @include contained1(#01558C,$white);
+      @include contained1($gradient,$white);
     }
-      &-fairuz{
-      @include contained1(#BF212E,$white);
+      &-default{
+      @include contained1($gradient1,$white);
     }
+    &-error{
+      @include contained1(#EA6153,#fff);
+    }
+      &-success{
+      @include contained1(#2ecc71,#fff);
+    }
+    
      &-secondary{
       @include contained1(#05BF7D,$white);
     }

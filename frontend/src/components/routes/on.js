@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../navbar/navbar'
 import Users from '../users/users'
-import Posts from '../posts/posts';
+import Home from '../home';
 import EditPost from '../posts/edit-post'
 import {Switch,Redirect,Route} from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const On=({handleAuth})=>{
 		<Navbar handleAuth={handleAuth} />         
 		<div  className="wrapper">
 		<Switch>
-			<Route exact path="/posts" component={Posts} />
+			<Route exact path="/posts" component={Home} />
 			<Route exact path="/users" component={Users} />
 			<Route exact path="/posts/edit/:id" component={EditPost} />
 			<Redirect from="*" to="/posts" />

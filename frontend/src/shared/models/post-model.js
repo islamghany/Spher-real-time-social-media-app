@@ -3,7 +3,7 @@ import Slide from 'react-reveal/Slide';
 import {Link} from 'react-router-dom';
 import {useHttpClient} from '../../shared/hooks/http-hook';
 import {useDispatch,useSelector} from 'react-redux';
-
+import LoadindModal from './loading-modal'
 const PostModel=({closeModel,id})=>{
  const { isLoading, error, sendRequest } = useHttpClient();
  const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const PostModel=({closeModel,id})=>{
     console.log(id);
     try {
       await sendRequest(
-        `http://localhost:5000/api/posts/${id}`,
+       process.env.REACT_APP_BACKEND_URL+`/posts/${id}`,
         'DELETE',null,{
         'Content-Type': 'application/json',
         Authorization:'Bearer '+ token
@@ -24,6 +24,7 @@ const PostModel=({closeModel,id})=>{
 }	
 console.log(error)
 return (
+        <>
 		<div className="model__container">
          <div className="model">
                  <Slide collapse>
@@ -31,7 +32,8 @@ return (
              <ul className="model__list">
              	<li className="model__item">
              		<Link to={
-                        `/posts/edit/${id}`}
+                        `/posts/edit/${id}`
+                         }
                          >
              		Edit Post
              		</Link>
@@ -51,6 +53,8 @@ return (
             </Slide>
          </div>
 		</div>
+        {isLoading && <LoadindModal />}
+        </>
 		)
 }
 export default PostModel;

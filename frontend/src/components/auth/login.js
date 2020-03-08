@@ -4,16 +4,14 @@ import { useForm } from "react-hook-form";
 import EmailText from "../../shared/inputs/email";
 import PasswordText from "../../shared/inputs/password";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useDispatch } from "react-redux";
 
 const Login = ({ handleAuth }) => {
   const { register, handleSubmit, errors } = useForm();
   const { isLoading, error, sendRequest } = useHttpClient();
-  const dispatch = useDispatch();
   const handleLogin = async data => {
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/users/login",
+        process.env.REACT_APP_BACKEND_URL+"/users/login",
         "POST",
         JSON.stringify({
           ...data
@@ -22,9 +20,12 @@ const Login = ({ handleAuth }) => {
           "Content-Type": "application/json"
         }
       );
-      dispatch({ type: "SIGN_IN", payload: responseData.token });
-      dispatch({ type: "USER_DATA_IN", payload: responseData });
-      handleAuth(responseData._id, responseData.token, responseData.username);
+      handleAuth(
+        responseData._id,
+        responseData.token,
+        responseData.username,
+        responseData.img
+      );
     } catch (err) {
       console.log(err, error);
     }
@@ -49,7 +50,7 @@ const Login = ({ handleAuth }) => {
           <PasswordText register={register} errors={errors.password} />
           <button
             disabled={isLoading}
-            className="btn btn--contained1-primary block mg-none"
+            className="btn btn--contained1-primary mg-none"
           >
             {isLoading ? "Loading...." : "Login"}
           </button>

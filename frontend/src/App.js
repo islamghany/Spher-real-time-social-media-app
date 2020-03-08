@@ -1,3 +1,5 @@
+
+
 import React,{useEffect,useState,useCallback} from 'react';
 import {useSelector,useDispatch} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -9,18 +11,25 @@ const App =(props)=>{
   const [tokenExpirationDate,setTokenExpirationDate]=useState()
 	const token=useSelector(state=>state.isSignedIn);
 	const dispatch = useDispatch();
-
- const handlelogin = useCallback((uid,token,username,expirationDate)=>{
+  const handlelogin = useCallback((uid,token,username,img,expirationDate)=>{
   dispatch({type:'SIGN_IN',payload:token});
   const ExpirationDate =
     expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(ExpirationDate);
+     dispatch({type:'USER_DATA_IN',
+        payload:{_id:uid,
+          token,
+          username,
+          img,
+          expiration:ExpirationDate.toISOString()
+          }});
     localStorage.setItem(
       'userData',
       JSON.stringify({
         _id: uid,
         token: token,
         username:username,
+        img:img,
         expiration: ExpirationDate.toISOString()
       })
     );  
@@ -43,19 +52,19 @@ const App =(props)=>{
   }, [token,handleAuth, tokenExpirationDate]);
 
    useEffect(() => {
-  console.log('token',tokenExpirationDate)
   const storedData = JSON.parse(localStorage.getItem('userData'));
     if (
       storedData &&
       storedData.token &&
       new Date(storedData.expiration) > new Date()
     ){  
-      dispatch({type:'USER_DATA_IN',payload:storedData});
+
       handlelogin(
         storedData._id,
         storedData.token,
         storedData.username,
-         new Date(storedData.expiration));
+        storedData.img,
+         new Date(storedData.expiration))
      }
   }, [handlelogin]);  
 	return (

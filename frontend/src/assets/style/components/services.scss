@@ -1,0 +1,116 @@
+.services {
+  padding: 2rem 1rem 0 0rem;
+  @include respond(959px) {
+    display: flex;
+    .weather {
+      flex: 0 1 calc(50% - 2rem);
+      margin: 0 2rem;
+      &__header {
+        height: 19.7rem;
+      }
+    }
+    .salat {
+      flex: 0 1 calc(50% - 2rem);
+      margin: 0 2rem;
+    }
+  }
+  @include respond(phone) {
+    padding: 0;
+    padding-left: 2rem;
+    justify-content: space-between;
+    .weather {
+      flex: 0 1 calc(49%);
+      margin: 0 1rem !important;
+    }
+    .salat {
+      flex: 0 1 calc(49%);
+      margin: 0 1rem !important;
+    }
+  }
+  @include respond(500px) {
+    flex-direction: column;
+    .salat {
+      margin-top: 2rem !important;
+    }
+  }
+  &__not-availble {
+    background: #fff;
+    padding: 3rem 2rem;
+    font-size: 1.6rem;
+    color: #ea6153;
+    border-radius: 0.7rem;
+  }
+}
+.salat {
+  margin-top: 2rem;
+  border-radius: 0.6rem;
+  overflow: hidden;
+
+  &__header {
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 0.4rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
+  &__main {
+    background: linear-gradient(0deg, #3358f475, #1d8cf88c),
+      url(https://cdn.pixabay.com/photo/2018/01/13/15/41/egypt-3080277_960_720.jpg);
+    background-size: cover;
+    background-position: center center;
+  }
+  &__dashboard {
+    height: 15rem;
+
+    @include flex();
+    flex-direction: column;
+    &--time {
+      color: #fff;
+      font-size: 3.4rem;
+      font-weight: 700;
+      font-family: "Roboto";
+    }
+    &--last-salat {
+      color: #fff;
+      font-size: 1.4rem;
+      text-transform: capitalize;
+    }
+  }
+  &__times {
+    &--today {
+      padding: 0.4rem;
+      font-size: 1.6rem;
+      text-align: center;
+      color: $bg;
+      background: #e2e2e1;
+    }
+    &--list {
+      padding: 1rem 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: cenetr;
+      align-items: flex-start;
+      li {
+        padding: 1rem 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 1.4rem;
+        color: $bg;
+        &:not(:last-child) {
+          border-bottom: 1px solid #dddddd61;
+        }
+        &.active {
+          background: $gradient;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

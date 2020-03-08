@@ -1,32 +1,104 @@
-.post{
-	&__container{
-		margin-top: 10rem;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-	}
-	width:60rem;
-	box-shadow: -10px -10px 30px 0 #fff, 10px 10px 30px 0 #aeaec082, inset -10px -10px 10px 0 #aeaec038, inset 5px 5px 5px 0 #fff;
-    border-radius: 2rem;
-    padding:3rem;
-    margin:2rem;
-    &__header{
-    	display: flex;
-    	align-items: center;
-    	justify-content: space-between;
-
+.post {
+  &__container {
+    margin-top: 10rem;
+  }
+  width: 100%;
+  margin: 2rem 0;
+  background: $second;
+  border-radius: 1rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 2rem 2rem;
+    &--info {
+      display: flex;
+      align-items: center;
     }
-    &__title{  
-    font-size:1.7rem;
+    &--img {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      margin-right: 0.6rem;
+    }
+    &--name {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .name {
+        font-size: 1.5rem;
+        color: #fff;
+        font-weight: 300;
+      }
+      .place {
+        font-size: 1.3rem;
+        color: $primary;
+        font-weight: 300;
+      }
+    }
+  }
+  &__content {
+    p {
+      padding: 0.5rem 2.5rem;
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: #fff;
+    }
+  }
+  &__tail {
+    padding: 2rem;
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    &--like {
+      display: flex;
+      align-items: center;
+      .nol {
+        font-size: 1.8rem;
+        color: #fff;
+        margin-right: 0.6rem;
+      }
+      .icon {
+        cursor: pointer;
+      }
+    }
+    &--time-left {
+      color: $text-color;
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+  }
+  &__title {
+    flex: 0 1 90%;
+    font-size: 1.7rem;
     font-weight: 300;
-    padding:2rem 0;  
-    margin-right: 1rem;  
+    margin-right: 1rem;
+    overflow: auto;
+    .place {
+      color: $primary;
+      font-weight: 400;
+      font-size: 2rem;
     }
-    &__menu{
-         cursor: pointer;
+    p {
+      word-wrap: break-word;
     }
-    &__body{
-      font-size:1.4rem;
-      padding:0 2rem;
+  }
+  &__menu {
+    cursor: pointer;
+  }
+  &__body {
+    font-size: 0;
+    img {
+      object-fit: cover;
+      width: 100%;
     }
-}   
+  }
+}
+.order {
+  @include respond(959px) {
+    order: 3 !important;
+  }
+  margin: 0 auto !important;
+}

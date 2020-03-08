@@ -1,0 +1,94 @@
+.sidebar {
+  padding: 2rem 0 0 1rem;
+  &__container {
+    border-radius: 0.6rem;
+    overflow: hidden;
+  }
+  &__cover {
+    height: 15rem;
+    background: $gradient;
+    position: relative;
+  }
+  &__pp {
+    width: 7.5rem;
+    height: 7.5rem;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 18px 0 #15151573;
+    &--wrapper {
+      position: relative;
+    }
+    &--img {
+      width: 100%;
+      border-radius: 50%;
+      background-position: center center !important;
+      background-size: cover !important;
+      height: 6.5rem;
+    }
+    &--icon {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(0, -78%);
+      background: #fff;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      z-index: 11;
+
+      background: #fff;
+      border-radius: 50%;
+
+      @include flex();
+      box-shadow: 0 2px 2px 0 #15151573;
+    }
+  }
+  &__info {
+    background: #fff;
+    padding: 6rem 1rem 3rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &--name {
+      font-weight: 300;
+      color: #262626;
+      font-size: 2.2rem;
+      line-height: 3.2rem;
+      font-family: "montserrat";
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &--email {
+      font-size: 1.4rem;
+      color: $text-color;
+    }
+    &--post {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .icon {
+        width: 6rem;
+        height: 6rem;
+        box-shadow: 0 2px 2px 0 #15151573;
+        @include flex();
+        border-radius: 50%;
+      }
+      .nop {
+        font-weight: 300;
+        color: #262626;
+        font-size: 1.7rem;
+        line-height: 3.2rem;
+        font-family: "montserrat";
+      }
+    }
+  }
+}

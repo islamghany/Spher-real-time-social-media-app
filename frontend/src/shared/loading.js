@@ -1,10 +1,10 @@
 import React from 'react';
-import spinner from "../assets/icons/spinner.gif"
+import spinner from "../assets/icons/rolling.gif"
 const Loading =(props)=>{
 	return <div style={styles.container}>
        <img 
-       height="10%"
-       width="10%"
+       height="40rem"
+       width="40rem"
         src={spinner} 
         {...props}
         alt='loading..' />

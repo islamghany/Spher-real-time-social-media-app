@@ -152,19 +152,24 @@
     }
   }
 } 
-@mixin contained1($main,$secondary){
+@mixin contained1($gradient,$color){
   box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  padding:1rem 2rem;
-  background:$main;
-  color:$secondary;
+  padding:1.1rem 4rem;
+  background:$gradient;
+  color:$color;
+  background-size: 210% 210%;
+  background-position: 100% 0;
+  
   border:none;
-  text-transform:uppercase;
+  text-transform:capitalize;
   font-size:1.4rem;
   font-weight:400;
-  line-height:1.5;
+  line-height:1.35;
   display:inline-flex;
+  font-family: 'lato';
+  transition:all .3s;
+
   &:hover{
-    background: darken($main, 10%);
     transform: translateY(-1px);
   }
 }
