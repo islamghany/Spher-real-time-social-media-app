@@ -1,11 +1,11 @@
 const express = require('express');
 const { check } = require('express-validator');
-
+const upload = require('../middlewares/upload-image.js');
 const usersController = require('../controllers/users-controllers');
 const router = express.Router();
-
 router.get('/', usersController.getUsers);
-
+router.get('/:id', usersController.getUser);
+router.post('/img/:id',upload.single('img'),usersController.changeImg);
 router.post(
   '/signup',
   [

@@ -24,11 +24,11 @@ const userSchema = Schema({
 		unique:true
 	},
 	img:{
-		type:String,
-		required:true
+		
 	},
 	posts:[{ type: mongoose.Types.ObjectId, required: true, ref: 'Post' }]
 })
+
 
 userSchema.plugin(uniqueValidator);
 module.exports = mongoose.model('User',userSchema)

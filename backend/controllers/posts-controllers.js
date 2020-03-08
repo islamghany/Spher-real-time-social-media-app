@@ -1,144 +1,226 @@
-const mongoose = require('mongoose');
-const HttpError = require('../models/HttpError');
-const Post = require('../models/post');
-const User = require('../models/user');
-const { validationResult } = require('express-validator');
+const mongoose = require("mongoose");
+const HttpError = require("../models/HttpError");
+const Post = require("../models/post");
+const User = require("../models/user");
+const multer = require("multer");
+var Jimp = require("jimp");
 
-const createPost = 	async (req,res,next)=>{
+const { validationResult } = require("express-validator");
+
+const createPost = async (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()){
+  if (!errors.isEmpty()) {
     return next(
-      new HttpError('Invalid inputs passed, please check your data.', 422)
+      new HttpError("Invalid inputs passed, please check your data..", 422)
     );
   }
-    const {title,body,creator} = req.body;
-    const createdPost = new Post({
-      title,
-      body,
-      creator
-    })
-     let user;
+
+  const { title, location, creator } = req.body;
+  if (!title && !req.file) {
+    return next(
+      new HttpError("At least you should select post an image or a title!", 422)
+    );
+  }
+  let img = null;
+  let BufferImg = null;
+  if (req.file && req.file.buffer) {
+    try {
+      img = await Jimp.read(req.file.buffer);
+      await img.resize(614, Jimp.AUTO);
+    } catch (err) {
+      const error = new HttpError(
+        "Creating post failed, please try again..",
+        500
+      );
+      return next(error);
+    }
+    img.getBuffer("image/png", (err, Buff) => {
+      BufferImg = Buff;
+    });
+  }
+
+  const createdPost = new Post({
+    title,
+    img: BufferImg,
+    creator,
+    location,
+    liked: []
+  });
+  let user;
   try {
     user = await User.findById(creator);
   } catch (err) {
     const error = new HttpError(
-      'Creating post failed, please try again.',
+      "Creating post failed, please try again..",
       500
     );
     return next(error);
   }
-   console.log(user)
   if (!user) {
-    const error = new HttpError('Could not find user for provided id.', 404);
+    const error = new HttpError("Could not find user for provided id....", 404);
     return next(error);
   }
 
-   try {
-   	console.log(createdPost);
+  try {
     const sess = await mongoose.startSession();
-    console.log(2);
-    sess.startTransaction();
-    console.log(3);
-    await createdPost.save(); 
-    console.log(4);
-    user.posts.push(createdPost); 
-    await user.save(); 
-    console.log(5);
-    await sess.commitTransaction();
-    console.log('nor error')
-  } catch (err) {
-  	console.log(err);
-    const error = new HttpError(
-      'Creating post failed, please try again.',
-      500
-    );
-        console.log('error')
 
+    sess.startTransaction();
+    await createdPost.save();
+    user.posts.push(createdPost);
+    await user.save();
+    await sess.commitTransaction();
+  } catch (err) {
+    const error = new HttpError("Creating post failed, please try again.", 500);
     return next(error);
   }
-    res.status(201).json({ post: createdPost });
+  res.status(201).json({ post: createdPost });
+};
+const likePost = async (req, res, next) => {
+  const { creator, postId } = req.body;
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError("someting went wrong.", 500);
+    return next(error);
+  }
+  if (!post) {
+    const error = new HttpError("someting went wrong.!", 500);
+    return next(error);
+  }
 
-}
-const getPosts = async (req,res,next)=>{
-	let posts;
-     try{
-     	 posts = await Post.find();
-     }catch(err){
-     	const error = new HttpError('something went wrong',500);
-     	return next(error);
-     }
-       res.json({ posts: posts.map(post => post.toObject({ getters: true })) });   
-}
-const getPost = async(req,res,next)=>{
-	const postId = req.params.id;
-	let post;
-	try{ 
-       post = await Post.findById(postId);
-	}catch(err){
-		const error = HttpError('something went wrong',500);
-		return next(error);
-	}
-    if(!post){
-    	const error = HttpError('could not find the post with the given id',404);
-		return next(error);
+  const idx = post.liked.indexOf(creator);
+  if (idx !== -1) {
+    try {
+      post.liked.splice(idx, 1);
+      await post.save();
+    } catch (err) {
+      const error = new HttpError("someting went wrong.", 500);
+      return next(error);
     }
-    res.json({post:post.toObject({getters:true})});
-} 
-const deletePost=async (req,res,next)=>{
-	const postId = req.params.id;
-	console.log(req.body)
-	let post;
-	try{
-		post = await Post.findById(postId).populate('creator');
-	}catch(err){
-		console.log('not found');
-	 const error = new HttpError(
-      'Something went wrong, could not delete post.',
+  } else {
+    try {
+      post.liked.push(creator);
+      await post.save();
+    } catch (err) {
+      const error = new HttpError("someting went wrong.", 500);
+      return next(error);
+    }
+  }
+  res.status(200).json({ message: "like" });
+};
+const getPosts = async (req, res, next) => {
+  let posts;
+  try {
+    posts = await Post.find().populate({
+      path: "creator"
+    });
+  } catch (err) {
+    const error = new HttpError("something went wrong", 500);
+    return next(error);
+  }
+  res.json({
+    posts: posts.map(post => post.toObject({ getters: true })).reverse()
+  });
+};
+const getPost = async (req, res, next) => {
+  const postId = req.params.id;
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError("something went wrong", 500);
+    return next(error);
+  }
+  if (!post) {
+    const error = new HttpError(
+      "could not find the post with the given id",
+      404
+    );
+    return next(error);
+  }
+  res.json({ post: post.toObject({ getters: true }) });
+};
+const editPost = async (req, res, next) => {
+  const postId = req.params.id;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data..", 422)
+    );
+  }
+  let post;
+  try {
+    post = await Post.findById(postId);
+  } catch (err) {
+    const error = new HttpError("Something went wrong.!", 500);
+    return next(error);
+  }
+  if (!post) {
+    const error = new HttpError("Something went wrong.!", 400);
+    return next(error);
+  }
+  try {
+    post.title = req.body.title;
+    await post.save();
+  } catch (err) {
+    const error = new HttpError("Something went wrong.!", 500);
+    return next(error);
+  }
+  res.json({ message: "updated sucessfuly.!" });
+};
+const deletePost = async (req, res, next) => {
+  const postId = req.params.id;
+  let post;
+  try {
+    post = await Post.findById(postId).populate("creator");
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not delete post.",
       500
     );
     return next(error);
-	}
-		console.log(post);
+  }
 
-	if(!post){
-		const error = new HttpError('could not find a post with a givern id ',404);
-		return next(error);
-	}
-   if (post.creator.id !== req.userData._id) {
+  if (!post) {
+    const error = new HttpError("could not find a post with a givern id ", 404);
+    return next(error);
+  }
+  if (post.creator.id !== req.userData._id) {
     const error = new HttpError(
-      'You are not allowed to delete this post.',
+      "You are not allowed to delete this post.",
       401
     );
     return next(error);
   }
-	try {
-		 console.log(2);
+  try {
     const sess = await mongoose.startSession();
-     console.log(21);
+
     sess.startTransaction();
-     console.log(22);
-    await post.remove({session: sess});
-     console.log(23);
+
+    await post.remove({ session: sess });
+
     post.creator.posts.pull(post);
-     console.log(24);
-    await post.creator.save({session: sess});
-     console.log(25);
+
+    await post.creator.save({ session: sess });
+
     await sess.commitTransaction();
-  }catch (err) {
-  	console.log(err)
+  } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not delete place.',
+      "Something went wrong, could not delete place.",
       500
     );
     return next(error);
   }
-  
-  res.status(200).json({ message: 'Deleted post.' });
+
+  res.status(200).json({ message: "Deleted post." });
 };
 
-module.exports={
-	createPost:createPost,
-	getPosts:getPosts,
-	deletePost:deletePost,
-	getPost:getPost
-}
+module.exports = {
+  createPost: createPost,
+  getPosts: getPosts,
+  deletePost: deletePost,
+  getPost: getPost,
+  likePost: likePost,
+  editPost
+};
