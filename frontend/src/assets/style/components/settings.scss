@@ -1,0 +1,31 @@
+.settings{
+	margin: 2rem 0;
+	background: $second;
+	padding: 2rem;
+	border-radius: 1rem;
+	min-height: 85vh;
+	&__nav{
+     &__list{
+     	display: flex;
+     	list-style-type: none;
+     }
+     &__item{
+     	margin-right: 2rem;
+
+     }
+     &__link{
+     	color:$text-color;
+     	font-size: 2rem;
+     	transition: all .3s;
+     	text-transform: capitalize;
+     	font-weight: 400;
+     	&.active{
+           color:$primary;
+     	}
+     }
+	}
+	&__block{
+		padding-top: 4rem;
+	}
+
+}

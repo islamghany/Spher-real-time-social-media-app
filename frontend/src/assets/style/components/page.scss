@@ -4,22 +4,48 @@ body{
 .main{
     width: 100%;
 }
- 
+
+ .emojy-picker{
+ 		@include respond(750px){
+ 			left:-13rem !important;
+ 			transform: translateX(-50%);
+ 			
+ 		}
+ 	}
+  .icon__wrapperr{
+      position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    overflow-y:auto;
+    width: 100vw;
+
+  }
+ 	.emoji-mart,.emoji-mart-dark{
+z-index: 10;
+   	@include respond(phone){
+   		width: 85vw !important;
+   	}
+   }
  .emjoy{
  	position: absolute;
  	top: 0;
  	left:0;
+   z-index: 10;
   	  > div:nth-child(2){
                 height:0 !important;
             }
             .picker{
                 position: absolute;
                 z-index: 100;
-                top:-20rem; 
-                left:-20rem;
+                
             }
- }
+   }
+ 
  .icon__emojy{
  	display: inline-block;
  	position: relative;
  }
+ 

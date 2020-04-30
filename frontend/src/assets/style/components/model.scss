@@ -1,97 +1,147 @@
-.model{
-	&__container{
-		position: fixed;
-		top:0;
-		left:0;
-		right:0;
-		bottom:0;
-		background: rgba(0,0,0,.4);
-		z-index: 1000;
-	}
-	width:100%;
-	height:100%;
-	@include flex();
-	&__body{
-		width: 45rem;
-		background: #f0f0f3;
-		border-radius:1.5rem;
-		box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-		overflow: hidden; 
-	}
-	&__list{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		
-	}
-	&__state{
-		
-		&--header{
-			padding:3rem 0;
-			display: flex;
-			justify-content: center;
-			
-			&.success{
-                 background: #2ecc71;
-			}
-			&.error{
-             background: #EA6153;
-			}
-		}
-		&--tail{
-			padding: 1rem 0;
-			display: flex;
-		justify-content: center;
-		}
-		&--body{
-			padding: 2rem 0;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			
-			h1{
-				font-size:2.4rem;
-				font-weight: 300;
-			}
-			p{
-				font-size:1.4rem;
-				color: #666666;
-				font-weight: 300;
-			}
-		}
-	}
-	&__item{
-		padding: 1.5rem 0;
-		line-height: 2.4rem;
-		font-size: 1.7rem;
-		color: #333;
-		align-items: center;
-        cursor:pointer;
-        text-align: center;
-		&:not(:first-child){
-			border-top: 1px solid #dbdbdb;
-		}
-		&:hover{
-			color: $link;
-		}
-		a{
-			display: block;
-			width:100%;
+.modal {
+  &__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y:auto;
+    width: 100vw;
+    
+  }
+  width: 100%;
+  height: 100%;
+  @include flex();
+  &__body {
+    width: 45rem;
+    background: #f0f0f3;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    &.cropper{
+      width: 60rem;
 
-		}
+    }
 
-		&.delete{
-			color:#ed4956;
-			.icon{
-				svg{
-					fill:#ed4956 !important;
-				}
-			}
-		}
-		.icon{
-             margin-left: 3rem;
-			margin-right: 1rem;
-		}	
+    @include respond(phone){
+    	width:95vw;
+    }
 
-	}
+  }
+  &__footer{
+        display: flex;
+        justify-content: flex-end;
+      }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__state {
+    &--header {
+      padding: 3rem 0;
+      display: flex;
+      justify-content: center;
+
+      &.success {
+        background: #2ecc71;
+      }
+      &.error {
+        background: #ea6153;
+      }
+    }
+    &--tail {
+      padding: 1rem 0;
+      display: flex;
+      justify-content: center;
+    }
+    &--body {
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        font-size: 2.4rem;
+        font-weight: 300;
+      }
+      p {
+        font-size: 1.4rem;
+        color: #666666;
+        font-weight: 300;
+      }
+    }
+  }
+  &__item {
+    padding: 1.5rem 0;
+    line-height: 2.4rem;
+    font-size: 1.7rem;
+    color: #333;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    &:not(:first-child) {
+      border-top: 1px solid #dbdbdb;
+    }
+    &:hover {
+      color: $link;
+    }
+    a {
+      display: block;
+      width: 100%;
+    }
+
+    &.delete {
+      color: #ed4956;
+      .icon {
+        svg {
+          fill: #ed4956 !important;
+        }
+      }
+    }
+    .icon {
+      margin-left: 3rem;
+      margin-right: 1rem;
+    }
+  }
+   &-enter{
+    .modal__container{
+      background: transparent;
+    }
+    .modal__body,.chat__form__container{
+      opacity: 0;
+      transform: scale(.2);
+    }
+  }
+  &-enter-active{
+    .modal__body,.chat__form__container{
+       opacity: 1;
+      transform: translateX(0);
+      transition: opacity 300ms, transform 300ms;
+    }
+    &.modal__container{
+      background: rgba(0, 0, 0, 0.4);
+      transition:  background .3s;
+    }
+  }
+  &-enter-done{
+  background: rgba(0, 0, 0, 0.4);
+  }
+
+  
+  //exit
+  &-exit{
+    .modal__body,.chat__form__container{
+      opacity: 1;    
+    }
+  }
+  &-exit-active{
+    .modal__body,.chat__form__container{
+      opacity: 0;
+  transform: scale(0.2);
+  transition: opacity 300ms, transform 300ms;
+    }
+  }
 }
+

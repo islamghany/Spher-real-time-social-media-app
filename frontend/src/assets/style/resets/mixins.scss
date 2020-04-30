@@ -173,6 +173,24 @@
     transform: translateY(-1px);
   }
 }
+@mixin contained2($bg,$color){
+  display:block;
+  background:$bg;
+      border:none;
+      height:5rem;
+      width:100%;
+      color:$color;
+      border-radius:.4rem;
+      outline:none;
+      font-size:1.6rem;
+      cursor:pointer;
+      transition:all .3s;
+      margin-top:4rem;
+      &:hover{
+        transform: translateY(-1px);
+      }
+    
+}
 @mixin iconed($main, $secondary, $back, $icon) {
   border: none;
   color: $secondary;

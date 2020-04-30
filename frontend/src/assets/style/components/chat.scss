@@ -1,0 +1,624 @@
+.chat{
+	display: flex;
+        &__input{
+			line-height:1.5;
+			border:none;
+			padding:1rem  .6rem 1rem 4rem;
+			width:100%;		
+			border-radius: 2rem;	
+			font-size: 1.5rem;
+			background: $hover;
+			color:#fff;
+			&.p{
+				padding:1rem 1.2rem;
+			}
+	}
+	&__icon{
+		@include flex();
+		height: 100vh;
+		svg{
+			height: auto;
+			width: 60%;
+		}
+	}
+	&__header{
+		display: flex;
+		align-items: center;
+		padding: .5rem 2rem;
+		margin-bottom:2rem;
+        &--icon{
+        width:4rem;
+        height:4rem;
+        transition: all .3s;
+        cursor: pointer;
+        border-radius:2rem;
+        @include flex();
+        &:hover{
+        	background: $hover;
+        	svg{
+        		fill:#fff;
+        	}
+        }
+        margin-right:2rem;
+        	svg{
+        		width:2.4rem;
+        		height:2.4rem;
+        		fill:$text-color;
+        	}
+        }
+        &--img{
+        	img{
+        	width:4.2rem;
+        	height: 4.2rem;
+        	object-fit: cover;
+        	border-radius: 2.4rem;
+        }
+        }
+	}
+	&__form{
+		 width: 45rem;
+    background: $second;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+   &--tail{
+     align-self: flex-end;
+   }
+    @include respond(phone){
+    	width:95vw;
+    }
+		&__container{
+			padding: 2rem 2rem 8rem;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+	.show-group{
+		display: none;
+		@include respond(phone){
+			position: absolute;
+			top: 1rem;
+			left:1rem;
+            width: 4rem;
+            height:4rem;
+            z-index: 4;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all .3s;
+            &:hover{
+            	background:$hover;
+            }
+            @include flex();
+            svg{
+            	width: 2rem;
+            	height: 2rem;
+            	fill:#fff;
+            }  
+		}
+	}
+	&__friends{
+		height:100vh;
+		background: $second;
+		border-right:1px solid $hover;
+		flex:0 1 35%;
+		display: flex;
+		flex-direction: column;
+		&__sfs{
+			flex:0 1 35%;
+		}
+		&__wrapper{
+			@include respond(phone){
+		 position: fixed;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+        z-index: 1000;
+			}
+		}
+		@include respond(phone){
+			&.hero{
+				display:none;
+			}
+			position: fixed;
+			width: 75vw;
+			z-index: 10;
+		}
+		&__add{
+			display: flex;
+			justify-content: space-between;
+			align-items: center; 
+			padding:1rem 2rem;
+			h2{
+				font-size:1.8rem;
+				color:$text-color;
+				font-weight: 300;
+			}
+			.icon{
+				width: 4.5rem;
+				height: 4.5rem;
+				@include flex();
+				border-radius: 2.5rem;
+				transition: all .3s;
+				cursor: pointer;
+				&:hover{
+					background: $hover;
+				} 
+				svg{
+					fill:$text-color !important;
+				}
+			}
+		}
+		&--search{
+        padding:0 2rem;
+        
+        svg{
+        	g{
+        		stroke:$text-color !important;
+        	}
+        }
+		}
+		&--unit{
+			position: relative;
+			
+		.search-icon{
+			position:absolute;
+			left:1rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+	&--friends-list{
+		padding:2rem 0 0rem 2rem;
+		flex: 1;
+    overflow: auto;
+
+	}
+	&--list{
+		padding-right: 1rem;
+	}
+	&--item{
+		display: flex;
+		padding: 1rem 1rem;
+		border-radius: 1rem;
+		justify-content: space-between;
+		transition: all .3s;
+		position: relative;
+
+		>h1{
+			font-size: 1.6rem;
+			font-weight: 300;
+			text-align: center;
+			width: 100%;
+            color:$text-color; 
+		}
+		&:not(:last-child){
+			margin-bottom: 1rem;
+		}
+		cursor: pointer;
+		&:hover{
+			background: $hover;
+		}
+		&.unread{
+           .unread__not{
+           	position: absolute;
+           	z-index: 3;
+           	top: 0;
+           	left: 0;
+           	width: 3rem;
+           	height:3rem;
+           	color:#fff;
+           	font-size: 1.7rem;
+           	background: $danger;
+           	border-radius: 2rem;
+           	@include flex();
+           } 
+		}
+	}
+	&--user{
+		display: flex;
+		align-items: center;
+		.cf__img{
+			 width:4rem;
+             	 height:4rem;
+                 border-radius: 2rem;
+             img{
+             	 width:4rem;
+             	 height:4rem;
+                 border-radius: 2rem;
+             }
+		}
+		.cf__info{
+			margin-left: 1rem;
+			h1{
+				    font-weight: 300;
+				    font-size: 1.6rem;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				    white-space: nowrap;
+				    visibility: visible;
+				    width: 15rem;	
+				    color:#fff;
+
+			}p{
+                width: 15rem;				
+				overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    color:rgba(0,0,0,.6);
+			    font-size: 1.4rem;
+			    color:$text-color;
+			   
+			}
+		}
+	}
+	&--lastsent{
+		font-size: 1.2rem;
+		color:$text-color;
+	}
+}
+	&__messages{
+		background: $bg;
+	    height:100vh;
+	    overflow-y: auto;
+	    flex: 1;
+	    display: flex;
+	    flex-direction: column;
+	    &__header{
+	    	background:$second;
+	    	display: flex;
+	    	justify-content:space-between;
+	    	padding:1rem 2rem; 
+	    	border-bottom:1px solid $hover;
+	    	align-items: center;
+	    	&__user{
+	    		display: flex;
+	    		align-items: center;
+	    		h2{
+	    			font-style: 1.6rem;
+	    			color:#fff;
+	    			font-weight: 300;
+	    			margin-left: 1rem;
+	    		}
+	    		@include respond(phone){
+			margin-left: 5rem;
+		}
+	    	}
+	    	&--img{
+	    		width: 4rem;
+	    		height:4rem;
+	    		border-radius: 2rem;
+	    		img{
+	    		width: 4rem;
+	    		height:4rem;
+	    		border-radius: 2rem;
+	    		}
+	    	}
+	    	&--options{
+	    		display: flex;
+                .icon{
+                	width:4rem;
+                	height:4rem;
+                	border-radius: 2rem;
+                	@include flex();
+                	cursor: pointer;
+                	transition: all .3s;
+                     position: relative; 
+                	&:first-child{
+                		margin-right: 1rem;
+                	}
+
+                	svg{
+                		width:2rem;
+                	    height:2rem;
+                		fill:$text-color;
+                	}
+                	&.activeIcon{
+                		background: $hover;
+                	}
+                }
+	    	}
+	    }
+	}
+	&__body{
+       flex:1; 
+       position: relative;
+       &__divider{
+       	font-size:1.6rem;
+       	color:$text-color;
+       	text-align:center;
+       	padding: 1rem 0;
+       }
+       &__container{
+       	        display: flex;
+			    flex-direction: column;
+			    height: 100%;
+			    overflow-x: hidden;
+			    overflow-y: scroll;
+			    position: absolute;
+			    top: 0;
+			    transition: background 0.3s ease-out 0.1s;
+			    width: 100%;
+			    left:0;
+             padding-bottom: 1rem;
+             .message__img{
+             	padding: .4rem;
+             	img{
+             		             	cursor: pointer;
+
+             	 height: auto;
+    width: 30rem;
+    border-radius: 1rem;
+             	}
+             }
+
+             .file{
+             	display: flex;
+             	align-items: center;
+             	padding: 1rem;
+
+             	&__icon{
+             		width: 2.4rem;
+             		height:auto;
+             		svg{
+             			path{
+             				fill: #fff
+             			}
+             		}
+             	}
+             	&__text{
+             		font-size: 1.6rem;
+             		font-weight: 300;
+             		margin-left: .6rem;
+             		a{
+             			padding: .5rem;
+             			text-decoration: underline;
+             			color: #fff;
+             		}
+             	}
+             }
+       }
+       &__reciver{
+       	padding:0rem 3%;
+       	margin-bottom: .3rem;
+       	margin-bottom: 1rem;
+       	 &__username{
+        	color:#fff;
+        	font-size: 1.6rem;
+        	margin-bottom: .4rem;
+        	font-weight:300;
+        	display: block;
+        }
+       	  .message-text{
+       	  	max-width: 90%;
+       	  	background:$hover;
+       	  	display: inline-block;
+       	  	border-radius: .6rem;
+       	  	display: inline-flex;
+       	  	flex-direction:column;
+       	  	.time{
+       	  		padding:0 .4rem .4rem;
+       	  		color:$text-color;
+       	  		font-size: 1.3rem;
+       	  		align-self: flex-end;
+       	  	}
+
+       	  	&.tail{
+       	  	position: relative;
+       	  	
+            border-radius: 0 0.6rem .6rem .6rem !important;
+       	  	&::before{
+       	  		content:'';
+       	  		border-style: solid;
+                border-width: 0 10px 13px;
+       	  		border-color: transparent $hover transparent  transparent;
+       	  		position: absolute;
+       	  		top:0;
+       	  		right: 100%;
+       	  	}
+       	  }
+       	  	.text{
+       	  		display: inline-block;
+       	  		line-height: 1.8rem;
+       	  		color:#fff;
+       	  		font-size: 1.6rem;
+                padding: 1.2rem;
+       	  	}
+       	  }
+       }
+         &__sender{
+       	padding:0rem 3%;
+       	margin-bottom: 1rem;
+       	display: flex;
+        justify-content: flex-end;
+
+       	  .message-text{
+       	  	max-width: 90%;
+       	  	background:$gradient;
+       	  	display: inline-block;
+       	  		position: relative;
+       	  	display: inline-flex;
+       	  	border-radius: .6rem;
+       	  	       	  	flex-direction:column;
+
+       	  	&.tail{
+       	  	
+       	  	flex-direction:column;
+       	  	border-radius: .6rem 0 .6rem .6rem !important;
+       	  	&::before{
+       	  		content:'';
+       	  		border-style: solid;
+                border-width: 0 10px 13px;
+       	  		border-color: transparent  transparent  transparent $primary;
+       	  		position: absolute;
+       	  		top:0;
+       	  		left: 100%;
+       	  	}
+       	  }
+       	  	.text{
+       	  		display: inline-block;
+       	  		font-size: 1.6rem;
+       	  		line-height: 1.8rem;
+       	  		color:#fff;
+       	  		padding: 1.2rem;
+       	  	}
+       	  	.time{
+       	  		padding:0 .4rem .4rem;
+       	  		color:#fff;
+       	  		font-size: 1.3rem;
+       	  		align-self: flex-end;
+       	  	}
+       	  }
+       }
+	}
+	&__send{
+		
+		background:$second;
+		border-top: 1px solid $hover;
+		&--form{
+			flex:1;
+			margin:0 1rem;
+
+		}
+		.form__row{
+			display: flex;
+		   align-items: center;
+		height:6rem;
+
+			padding:0 2rem;
+
+		}
+		.icon{
+                	width:4rem;
+                	height:4rem;
+                	border-radius: 2rem;
+                	@include flex();
+                	cursor: pointer;
+                	transition: all .3s;
+                     
+                	
+                	svg{
+                		width:2.4rem;
+                	    height:2.4rem;
+                		fill:$primary;
+                	}
+                	
+                }
+	}
+	&__room{
+		height: 100vh;
+		overflow-y: auto;
+		background: $second;
+		border-left: 1px solid $hover;
+		width:35rem;
+		position: absolute;
+		z-index: 1000;
+		top: 0;
+		right: 0;
+		&__wrapper{
+		 position: fixed;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+        z-index: 1000;
+		}
+		 @include respond(phone){
+          width:75vw;
+        }
+
+		&__info{
+			padding:2rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			&__img{
+				width: 20rem;
+				height:20rem;
+				border-radius: 10rem;
+				img{
+					width: 20rem;
+				height:20rem;
+				object-fit: cover;
+				border-radius: 10rem;
+				}
+			}
+			h5{
+				padding: 1rem 0;
+				font-size: 2rem;
+				color:#fff;
+				font-weight: 300;
+			}
+		}
+		.h2{
+			padding: 2rem;
+		}
+		&__list{
+			display: flex;
+			flex-direction: column;
+			padding: 2rem;
+		}
+		&__item{
+			display: flex;
+			align-items: center;
+			margin-bottom: 1.5rem;
+			h4{
+				padding-left: 1rem;
+				font-size: 1.6rem;
+				color:$text-color;
+				font-weight: 300;
+			}
+			&--img{
+				width:5rem;
+				height:5rem;
+				border-radius:2.5rem;
+				position: relative;
+				.userActive{
+				width: 1.4rem;
+				height:1.4rem;
+                border-radius: 1rem;
+                background: $success;
+                position: absolute;
+               bottom: 0;
+               right:0;
+				}
+				img{
+			    width:5rem;
+				height:5rem;
+				border-radius:2.5rem;
+				object-fit: cover;
+				}
+			}
+		}
+	}
+}
+
+.dropdown{
+   position: absolute;
+    top: 5rem;
+    width: 20rem;
+    background: $hover;
+    z-index: 20000;
+    right: 0rem;
+    border-radius: .6rem;
+    padding: 1rem 0;
+    cursor: default;
+  &__list{
+  	display: flex;
+  	flex-direction: column;
+  }
+  &__item{
+  	padding: .8rem 1.3rem;
+  	font-size:1.5rem;
+  	color:$text-color;
+  	transition: all .2s;
+  	cursor: pointer;
+  	font-weight: 300;
+  	&:hover{
+  		background: #f0f0f3;
+  	} 
+  }
+}
+.fade-in-top{animation:fade-in-top .6s cubic-bezier(.39,.575,.565,1.000) both}
+.slide-in-left{-webkit-animation:slide-in-left .5s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-left .5s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes fade-in-top{0%{transform:translateY(-50px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@-webkit-keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}

@@ -55,6 +55,14 @@
       @include cartoon(#5D6063,white)
     }
   }
+   &--contained2{
+     &-primary{
+      @include contained2($gradient,$white);
+    }
+    &-secondary{
+      @include contained2($gradient1,$white);
+    }
+  }
    &--contained1{
      &-primary{
       @include contained1($gradient,$white);
@@ -69,8 +77,8 @@
       @include contained1(#2ecc71,#fff);
     }
     
-     &-secondary{
-      @include contained1(#05BF7D,$white);
+     &-danger{
+      @include contained1($danger,$white);
     }
       &-link{
       @include contained1(#130C1E,#fff);

@@ -1,26 +1,32 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Slide from 'react-reveal/Slide';
-import {Cancel,Accept} from '../../assets/icons/icons.js'
-const ErrorModal = ({message,closeModal,state})=>{
-   return <div className="model__container">
-         <div className="model">
+import {Cancel,Accept} from '../../assets/icons/icons';
+
+const ErrorModal = ({message="Process faild",closeModal,state='error'})=>{
+  useEffect(()=>{
+     window.addEventListener('click',closeModal);
+
+     return ()=>window.removeEventListener('click',closeModal); 
+  },[])
+   return <div className="modal__container">
+         <div className="modal">
              <Slide collapse>
-            <div className="model__body" onClick={(e)=>e.stopPropagation()}>
-             <div className="model__state">
-              <div className={`model__state--header ${state}`}>
+            <div className="modal__body" onClick={(e)=>e.stopPropagation()}>
+             <div className="modal__state">
+              <div className={`modal__state--header ${state}`}>
                  {state==='error' ? <Cancel width='6rem' height='6rem' /> : <Accept width='6rem' height='6rem' />}  
               </div>
-              <div className="model__state--body">
+              <div className="modal__state--body">
                  <h1>{state==='error' ? 'Oh snap!' : 'Right on!'}</h1>
                  <p>{message}</p>
               </div>
-            <div className="model__state--tail">	
+            <div className="modal__state--tail">  
              <button onClick={closeModal} className={`btn btn--contained1-${state} mg-none`}>Close</button> 
             </div>
              </div>
             </div>
             </Slide>
          </div>
-		</div>
+    </div>
 }
 export default ErrorModal;

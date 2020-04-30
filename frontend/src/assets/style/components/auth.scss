@@ -6,6 +6,30 @@
     flex-direction: column;
   }
   .form__images {
+    &--options{
+      display: flex;
+      .icon{
+        width:4rem;
+        height:4rem;
+        border-radius: 2rem;
+        background:$hover;
+        @include flex();
+        cursor: pointer;
+        transition: all .3s;
+        &.crop{
+         
+          &:hover{background:$primary;}
+        }
+        &.del{
+          margin-right: 1rem;
+
+          &:hover{
+          background:$danger; 
+        }
+
+        }
+      }
+    }
     &--container {
       background: $bg;
       transition: all 0.3s;
@@ -14,15 +38,18 @@
       padding: 1rem 2rem;
       display: flex;
       align-items: flex-start;
+      justify-content: space-between;
       border-radius: 0 0 1rem 1rem;
+
       img {
         width: 10rem;
-        border-radius: 0.3rem;
+        border-radius: 1rem;
       }
       .img {
         position: relative;
         overflow: hidden;
         margin: 0 0.4rem;
+
       }
       .img-wrap {
         position: absolute;
@@ -72,9 +99,13 @@
     &--img {
       width: 5rem;
       height: 5rem;
-      border-radius: 50%;
-      background-position: center center !important;
-      background-size: cover !important;
+      border-radius: 2.5rem;
+     
+      img{
+      width: 5rem;
+      height: 5rem;
+      border-radius: 2.5rem;
+      }
     }
     &--username {
       font-size: 1.4rem;
@@ -93,13 +124,34 @@
     margin: 0 auto;
     background: $second;
     position: relative;
+    &.port{
+      padding-top: 4rem;
+    }
     &.big {
       width: 100%;
     }
   }
-
+  &__control{
+        margin: 1rem 0 2rem 0;
+     &.dup{
+      display: flex;
+      justify-content: space-between;
+      .form__unit{
+        flex:0 1 calc(50% - 1rem);
+      }
+     }
+     &.tri{
+      display: flex;
+      justify-content: space-between;
+      .form__unit{
+       flex:0 1 calc(33.33333% - 1rem);
+      }
+     }
+  } 
   &__unit {
-    margin: 1rem 0 2rem 0;
+    position:relative;
+    border-radius:.4rem;
+    margin-bottom: .4rem;
     &.features {
       position: relative;
       .features__icons {
@@ -142,26 +194,93 @@
     margin-left: 1rem;
   }
 
-  &__input {
-    width: 100%;
-    border: 1px solid $text-color;
-    background: transparent;
-    border-radius: 0.6rem;
-    font-size: 1.4rem;
-    line-height: 1.43;
-    padding: 1rem 1.8rem;
-    color: hsla(0, 0%, 100%, 0.8);
-    appearance: none;
-    transition: all 0.3s;
-    &:focus {
-      border: 1px solid $primary;
-      color: #fff;
+  // &__input {
+  //   width: 100%;
+  //   border: 1px solid $text-color;
+  //   background: transparent;
+  //   border-radius: 0.6rem;
+  //   font-size: 1.4rem;
+  //   line-height: 1.43;
+  //   padding: 1rem 1.8rem;
+  //   color: hsla(0, 0%, 100%, 0.8);
+  //   appearance: none;
+  //   transition: all 0.3s;
+  //   &:focus {
+  //     border: 1px solid $primary;
+  //     color: #fff;
+  //   }
+  //   &::placeholder {
+  //     color: $text-color;
+  //   }
+  // }
+&__label{
+    position:absolute;
+    top:50%;
+    left:2rem;
+    transform:translateY(-50%);
+    color:#8c8c8c;
+    font-size:1.6rem;
+    text-transform:capitalize;
+    transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease, -webkit-transform 0.1s ease, -moz-transform 0.1s ease, -o-transform 0.1s ease;
+    pointer-events:none;
+  }
+  &__label-area{
+    position:absolute;
+    top:0;
+    left:2rem;
+    transform:translateY(1rem);
+    color:#8c8c8c;
+    font-size:1.6rem;
+    text-transform:capitalize;
+    transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease, -webkit-transform 0.1s ease, -moz-transform 0.1s ease, -o-transform 0.1s ease;
+    pointer-events:none;
+  }
+  &__input{
+    padding:1.6rem 2rem 0;
+    width:100%;
+    background:#333;
+    border:none;
+    outline:none;
+    color:#fff;
+    line-height:5rem;
+    height:5rem;
+    border-radius:.4rem;
+    border:2px solid transparent;
+    transition:all .3s;
+    &:focus{
+      background:#454545;
+      border-color:$primary;
     }
-    &::placeholder {
-      color: $text-color;
+    &:focus ~ .form__label,
+    &:not(:placeholder-shown) ~ .form__label{
+      font-size:1.2rem;
+      transform:translateY(0);
+      top:.7rem;
     }
   }
-
+  &__textarea{
+    padding:2rem 2rem 0;
+    width:100%;
+    background:#333;
+    border:none;
+    outline:none;
+    color:#fff;
+    line-height:2rem;
+    height:15rem;
+    border-radius:.4rem;
+    border:2px solid transparent;
+    transition:all .3s;
+    &:focus{
+      background:#454545;
+      border-color:$primary;
+    }
+    &:focus ~ .form__label-area,
+    &:not(:placeholder-shown) ~ .form__label-area{
+      font-size:1.2rem;
+      transform:translateY(0);
+      top:.7rem;
+    }
+  }
   textarea {
     color: hsla(0, 0%, 100%, 0.8);
     height: 12rem;

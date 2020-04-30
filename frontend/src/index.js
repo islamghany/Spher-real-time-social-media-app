@@ -7,20 +7,15 @@ import {createStore,applyMiddleware} from 'redux';
 import rootReducer from './reducers/index.js';
 import thunk from 'redux-thunk';
 
+	
+// REACT_APP_WEATHER_API_KEY=eff6908324d2496dacc16a5a56427f42
+// REACT_APP_SALAT_API_KEY=9ba81b545emsh8ec3c41be845490p1db0e6jsncf03fd85530d
+// REACT_APP_BACKEND_URL=http://localhost:5000/api
+
 const store=createStore(
   rootReducer,
    applyMiddleware(thunk)
  );
-// import {BrowserRouter as Router,Route} from 'react-router-dom';
-// import Test from './test';
-// ReactDom.render(<div>
-// 	<Router>
-// 	<Route path=''>
-// 	<Test />
-// 	</Route>
-//     </Router>
-//     </div> 
-// 	,document.querySelector('#root'))
 
 ReactDom.render(
 	<Provider store={store}>
@@ -28,3 +23,6 @@ ReactDom.render(
 	 </Provider>,
 	document.getElementById('root'));
 
+// if (module.hot) {
+// module.hot.accept();
+// }

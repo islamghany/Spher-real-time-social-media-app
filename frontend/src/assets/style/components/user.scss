@@ -1,94 +1,488 @@
-.sidebar {
-  padding: 2rem 0 0 1rem;
-  &__container {
-    border-radius: 0.6rem;
-    overflow: hidden;
+.friends{
+  &__container{
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+  } 
+  &__header{
+    background: $second;
+    margin:2rem 0;
+    padding:0 2rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:8rem;
+    @include respond(phone){
+      padding:0 .4rem;
+      .btn--contained1-primary{
+        padding:.8rem 1.6rem !important;
+      }
+    }
+
   }
-  &__cover {
-    height: 15rem;
-    background: $gradient;
+  form{
+    width: 100%;
+  }
+  &__form__unit{
+    display: flex;
+    justify-content: center;
     position: relative;
-  }
-  &__pp {
-    width: 7.5rem;
-    height: 7.5rem;
-    background: #fff;
-    padding: 0.5rem;
-    border-radius: 50%;
-    position: absolute;
-    top: 100%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 18px 0 #15151573;
-    &--wrapper {
-      position: relative;
-    }
-    &--img {
-      width: 100%;
-      border-radius: 50%;
-      background-position: center center !important;
-      background-size: cover !important;
-      height: 6.5rem;
-    }
-    &--icon {
+    .icon{
       position: absolute;
-      left: 50%;
-      top: 100%;
-      transform: translate(0, -78%);
-      background: #fff;
-      border-radius: 50%;
-      width: 3rem;
-      height: 3rem;
-      z-index: 11;
-
-      background: #fff;
-      border-radius: 50%;
-
-      @include flex();
-      box-shadow: 0 2px 2px 0 #15151573;
+      top:50%;
+      left:.5rem;
+      transform:translateY(-50%);
+      svg{
+        path,g{
+          stroke:$primary;
+        }
+      }
     }
   }
-  &__info {
-    background: #fff;
-    padding: 6rem 1rem 3rem 1rem;
+  &__search{
+    flex:1;
+    display: block;
+    font-size: 1.5rem;
+    background: #3a3b3c;
+    border: none;
+    padding: .6rem 1rem .6rem 3.5rem;
+    color: #fff;
+    border-radius: .6rem;
+    margin-right: .8rem
+  }
+  &__users{
+    flex:1;   
+    display: flex;
+    flex-direction: column;
+    .img-container{
+      width: 100%;
+      height:100%;
+      display: flex;
+      justify-content: center;
+      align-item:center;
+        > svg {
+      width:50rem !important;
+      height:auto;
+    }
+    }
+   
+  }
+}
+
+.user{
+    background: $second;
+    width: 100%;
+    padding:3rem 4rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+
+    &__header{
+      display: flex;
+      align-items: center;
+    }
+    &__info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    &__add{
+      background: $hover;
+      width:5rem;
+      height:5rem;
+      border-radius: 2.5rem;
+      @include flex();
+    }
+    &-placeholder{
+    background: $second;
+    width: 100%;
+    padding:3rem 4rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+     &__header{
+      display: flex;
+      align-items: center;
+    }
+    &__info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+      &__img{
+        width:6rem;
+      height:6rem;
+      background: $hover;
+      border-radius: 3rem;
+      margin-right: 1rem;
+      }
+      &__username{
+      width: 15rem;
+      height:1.5rem;
+      border-radius: 1rem;
+      background: $hover;
+      margin-bottom: 1rem;
+    }
+    &__name{
+       width: 8rem;
+      height:1.5rem;
+      border-radius: 1rem;
+      background: $hover;
+    }
+    }
+    &__img,{
+      img{
+        width: 6rem;
+        height: 6rem;
+        border-radius: 3rem;
+      }
+      width:6rem;
+      height:6rem;
+      border-radius: 3rem;
+      margin-right: 1rem;
+    }
+    &__username{
+      line-height:1.5rem;
+      margin-bottom: .6rem;
+      font-size: 1.7rem;
+      color:#fff;
+      font-weight: 400;
+    }
+    &__name{
+      line-height:1.5rem;
+      font-size: 1.3rem;
+      color:$text-color;
+      font-weight: 400;
+    }
+}
+
+.profile{
+  &__about{
+    margin:2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    border:1px solid $hover;
+    h2{
+         font-weight: 300;
+         font-size: 2.5rem;
+         padding-bottom: 1rem;
+         color:$text-color;
+
+
+    }
+    &__field{
+      display: flex;
+      align-items: center;
+      padding:.5rem 0;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color:$text-color;
+      &__quest{
+      display: flex;
+      align-items: center;
+      h4{
+        font-weight: 100;
+        margin-left:1rem;
+        margin-right: .4rem;
+      } 
+      svg{
+        fill:$text-color !important;
+        width:2rem;
+        height:2rem;
+        g{
+          fill:$text-color !important;
+        }
+      }
+      }
+    }
+  }
+  &-placehoder{
+    margin-bottom: 2rem;
+    &__header{
+    display: flex;
+    align-items: center;
+    height:8rem;
+    margin:2rem 0;
+    padding:0 2rem;
+    background: $second;
+    border-radius: 1rem;
+     &--icon{
+      width:4rem;
+      height:4rem;
+      border-radius: 2rem;
+      background:$hover;      
+    }
+    h2{
+      width:10rem;
+      height:1.6rem;
+      border-radius: 1rem;
+       background:$hover;   
+       margin-left: 1rem;
+    }
+    }
+    &__cover{
+    height:25rem;
+    background:$second;
+    border-radius: 2rem;
+  }
+  &__row{
+    display: flex;
+    justify-content: space-between;
+    margin: 0rem 2rem 0rem 2rem;
+    border: 1px solid $hover;
+    border-top: none; 
+    border-radius: 0 0 .6rem .6rem;
+    @include respond(phone){
+      flex-direction: column;
+    }
+  }
+  &__info{
+    transform: translateY(-6.1rem);
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    align-items: center;
+    margin-left: 1rem;
+    &__picture{
+      @include flex();
+      width:12.2rem;
+      height: 12.2rem;
+      border-radius: 6.1rem;
+      background: $hover;
+      border:2px solid #fff;
+    }
+    &__username{
+
+      background: $hover;
+      height: 1.7rem;
+      width:12rem;
+      border-radius: 1rem;
+      margin: 1rem 0;
+    }
+    &__bio{
+       background: $hover;
+      height: 1.7rem;
+      width:100%;
+      border-radius: 1rem;
+      margin-top: 1rem;
+       @include respond(phone){
+          text-align: center;
+        }
+        }
+    &__name{
+      background: $hover;
+      height: 1.7rem;
+      width:12rem;
+      border-radius: 1rem;
+    }
+    &__statics{
+      flex:1;
+      margin:2rem 3rem 0;
+      &--head{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        padding-bottom: 1rem;
+        h3{
+         
+          width: 10rem;
+          background: $hover;
+      height: 1.7rem;
+      border-radius: 1rem;
+        }
+      }
+      &--result{
+        display: flex;
+       padding: 0 2rem;
+
+        justify-content: space-between;
+        padding-top: 1rem;
+        h3{
+           width: 10rem;
+          background: $hover;
+      height: 1.7rem;
+      border-radius: 1rem;
+        }
+        
+      }
+    }
+  }
+}
+  &__header{
+    display: flex;
+    align-items: center;
+    height:8rem;
+    margin:2rem 0;
+    padding:0 2rem;
+    background: $second;
+  border-radius: 1rem;
+    &--icon{
+      width:4rem;
+      height:4rem;
+      border-radius: 2rem;
+      transform: all .3s;
+      @include flex();
+      cursor: pointer;
+      svg{
+         width:2.4rem;
+         height:2.4rem;
+         fill:#fff;
+         transform: all .3s;
+      } 
+      &:hover{
+        background: $hover;
+        svg{
+          fill:$primary;
+        }
+      }
+    }
+    h2{
+      font-size: 1.8rem;
+      font-weight:300;
+      padding-left: 1rem;
+      color:#fff;
+    }
+
+  }
+  &__cover{
+    height:25rem;
+    //background-color:$second;
+    border-radius: 2rem;
+    background-size:cover;
+    background-position: center;
+  }
+  &__row{
+    display: flex;
+    justify-content: space-between;
+    margin: 0rem 2rem 0rem 2rem;
+    border: 1px solid $hover;
+    border-top: none; 
+    border-radius: 0 0 .6rem .6rem;
+      @include respond(phone){
+      flex-direction: column;
+
+    }
+  }
+  &__info{
+    transform: translateY(-6.1rem);
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    align-items: center;
+    margin-left: 1rem;
+    &__picture{
+      @include flex();
+      width:12.2rem;
+      height: 12.2rem;
+      border-radius: 6.1rem;
+      background: $hover;
+      border:2px solid #fff;
+      position: relative;
+      &:hover {
+        & > div{
+      background-color: $hover !important;
+    }
+    }
+      img{
+      width:12rem;
+      height: 12rem;
+      border-radius: 6rem;
+      object-fit: cover;
+      }
+
+      &--icon{
+        width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    background-color: #3a3b3cb5;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    &--name {
+    top: 100%;
+    left: 75%;
+    transform: translate(-1rem, calc(-100%));
+    transition: all .3s;
+      }
+       
+    }
+    &__username{
+      font-size: 1.7rem;
+      color: #fff;
+      line-height: 1.6;
       font-weight: 300;
-      color: #262626;
-      font-size: 2.2rem;
-      line-height: 3.2rem;
-      font-family: "montserrat";
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      text-align: center;
     }
-    &--email {
+    &__bio{
+        padding-top: 2rem;
+        text-align: left;
+         font-size: 1.4rem;
+         color: #fff;
+           @include respond(phone){
+      text-align: center;
+      margin-bottom: .7rem;
+    }
+        }
+    &__name{
       font-size: 1.4rem;
-      color: $text-color;
+      color:$text-color;
+      font-weight:200;
+      text-align: center;
     }
-    &--post {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      .icon {
-        width: 6rem;
-        height: 6rem;
-        box-shadow: 0 2px 2px 0 #15151573;
-        @include flex();
-        border-radius: 50%;
+    &__statics{
+      flex:1;
+      margin:2rem 3rem 0;
+        @include respond(phone){
+     margin-top: -3rem;
+    }
+      &--head{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        padding-bottom: 1rem;
+        h3{
+          font-size: 1.5rem;
+          color: #fff;
+          font-weight: 200;
+          text-transform: capitalize;
+          width: 10rem;
+          text-align: center;
+        }
       }
-      .nop {
-        font-weight: 300;
-        color: #262626;
-        font-size: 1.7rem;
-        line-height: 3.2rem;
-        font-family: "montserrat";
+      &--result{
+        display: flex;
+       padding: 0 2rem;
+
+        justify-content: space-between;
+        padding-top: 1rem;
+        h3{
+          font-size: 1.5rem;
+          color: $primary;
+          font-weight: 200;
+          width: 10rem;
+          text-align: center;
+        }
+        
       }
+    }
+  }
+}
+.has-more{
+  text-align: center;
+  padding: 2rem 0;
+  .nude{
+    text-transform: capitalize;
+    font-size: 1.7rem;
+    color:$text-color;
+    background: transparent;
+    text-decoration: underline;
+    cursor: pointer;
+    border:none;
+    transition: all .3s;
+    &:hover{
+       color:$link;
     }
   }
 }

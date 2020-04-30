@@ -1,9 +1,11 @@
 .nav{
-	background: $primary;
+	background: transparent;
 	text-align: center;
 	 background-size: 210% 210%;
   background-position: 100% 0;
-
+      position: fixed;
+      width: 100%;
+      z-index: 8;
 	&__body{
 		padding:0 2rem;
 		width: 100%;
@@ -11,6 +13,30 @@
 		justify-content: space-between;
 		align-items: center;
 		height:5rem;
+
+		.icon{
+			width: 4rem;
+			height:4rem;
+			border-radius: 2.25rem;
+			cursor: pointer;
+			transition: all .3s;
+			@include flex();
+			svg{
+				width:2.3rem;
+		    	height:2.3rem;
+				fill:#fff !important;
+			}
+			&:hover{
+				background: $second;
+			}
+			&-l{
+			svg{
+				width: 4rem;
+			height:4rem;
+			}
+			}
+			
+		}
 	}
 	&__logo{
 		display: flex;

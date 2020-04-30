@@ -1,49 +1,78 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Camera, Delete } from "../../assets/icons/icons.js";
-import Zoom from "react-reveal/Zoom";
 import GetLocation from "./post-form/get-location";
-import { useHttpClient } from "../../shared/hooks/http-hook";
 import EmojyPicker from "./post-form/emojy-picker";
 import ErrorModal from "../../shared/models/error-model";
-import LoadingModal from "../../shared/models/loading-modal";
-import {useDispatch} from 'react-redux';
+import LoadingPage from "../../shared/models/loading-modal";
+import { useFetch } from "../../shared/hooks/useFetch";
+import PostImage from "./post-form/post-image";
+import { useDispatch } from "react-redux";
+
 const PostForm = React.memo(({ user }) => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { loading, request, error, clearError } = useFetch();
   const [title, setTitle] = useState("");
-  const [files, setFiles] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
-  const [isValid, setIsValid] = useState(false);
-  const filePickerRef = useRef();
   const [location, setLocation] = useState(null);
   const dispatch = useDispatch();
-  const createPost = async data => {
+  const filePickerRef = useRef();
+  const [previewUrl, setPreviewUrl] = useState();
+  const [files, setFiles] = useState();
+  const [imgData, setImgData] = useState();
+
+  const pickedHandler = (event) => {
+    let pickedFile;
+    if (event.target.files && event.target.files.length === 1) {
+      pickedFile = event.target.files[0];
+      setFiles(pickedFile);
+    }
+  };
+  const removeImage = (idx) => {
+    setFiles(null);
+    setPreviewUrl(null);
+  };
+  const pickImageHandler = () => {
+    filePickerRef.current.click();
+  };
+  const createPost = async (data) => {
     try {
       const formData = new FormData();
+      if (imgData && imgData.width) {
+        formData.append("x", imgData.x);
+        formData.append("y", imgData.y);
+        formData.append("width", imgData.width);
+        formData.append("height", imgData.height);
+      }
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("img", data.img);
       formData.append("creator", data.creator);
-      const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL+"/posts",
-        "POST",
+      const responseData = await request(
+        process.env.REACT_APP_BACKEND_URL + "/posts",
+        "post",
         formData,
         {
-          Authorization: "Bearer " + user.token
+          Authorization: "Bearer " + user.token,
         }
       );
+      const newPost = {
+        createdAt: new Date().toISOString(),
+        username: user.username,
+        img: user.img,
+        _id: user.id,
+        isOnline: true,
+      };
       dispatch({
         type: "CREATE_POST",
         payload: {
-          ...responseData["post"],
-          img: previewUrl,
-          new: true,
-          creator: {
-            createdAt: new Date().toISOString(),
-            username: user.username,
-            img: user.img,
-            _id: user.id
-          }
-        }
+          ...responseData.data.post,
+          creator: newPost,
+        },
+      });
+      dispatch({
+        type: "ONE_MORE_POST",
+        payload: {
+          ...responseData.data.post,
+          creator: newPost,
+        },
       });
       removeImage();
       setTitle("");
@@ -52,21 +81,19 @@ const PostForm = React.memo(({ user }) => {
       console.log(err);
     }
   };
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTitle(e.target.value);
   };
-  const addEmojy = e => {
-    setTitle(el => el + e);
+  const addEmojy = (e) => {
+    setTitle((el) => el + e);
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createPost({ title, img: files, location, creator: user.id });
   };
-  const removeImage = idx => {
-    setFiles(null);
-    setPreviewUrl(null);
+  const setCropData = (data) => {
+    setImgData({ ...data });
   };
-
   useEffect(() => {
     if (!files) {
       return;
@@ -78,22 +105,9 @@ const PostForm = React.memo(({ user }) => {
     fileReader.readAsDataURL(files);
   }, [files]);
 
-  const pickedHandler = event => {
-    let pickedFile;
-    if (event.target.files && event.target.files.length === 1) {
-      pickedFile = event.target.files[0];
-      setFiles(pickedFile);
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  };
-  const pickImageHandler = () => {
-    filePickerRef.current.click();
-  };
   return (
     <div className="form__container">
-      {isLoading && <LoadingModal />}
+      {loading && <LoadingPage />}
       {error && (
         <ErrorModal state="error" closeModal={clearError} message={error} />
       )}
@@ -104,24 +118,15 @@ const PostForm = React.memo(({ user }) => {
       <div className="form">
         <form className="form__body big" onSubmit={handleSubmit}>
           <div className="form__user">
-            <div
-              className="form__user--img"
-              style={{
-                background: `url(${
-                  user.img[0] === "d" || user.img[0] === "h"
-                    ? user.img
-                    : `data:image/png;base64,${user.img.toString("base64")}`
-                })`,
-                backgroundSize: "cover",
-                backgrounPosition: "center center"
-              }}
-            ></div>
+            <div className="form__user--img">
+              <img src={user.img} alt="aa" />
+            </div>
             <div className="form__user--username">
               <h3>{user.username}</h3>
               {location && <span>{location}</span>}
             </div>
           </div>
-          <div className="form__unit">
+          <div className="form__unit my-2">
             <div className="form__unit features">
               <textarea
                 value={title}
@@ -129,22 +134,11 @@ const PostForm = React.memo(({ user }) => {
                 onChange={handleChange}
                 placeholder="what in your mind..?"
               ></textarea>
-              {previewUrl ? (
-                <div className="form__images--container">
-                  <div className="form__images--row">
-                    <Zoom>
-                      <div className="img">
-                        <div className="img-wrap">
-                          <div className="close" onClick={() => removeImage()}>
-                            <Delete width="2.5rem" height="2.5rem" />
-                          </div>
-                        </div>
-                        <img src={previewUrl} alt="aa" />
-                      </div>
-                    </Zoom>
-                  </div>
-                </div>
-              ) : null}
+              <PostImage
+                previewUrl={previewUrl}
+                removeImage={removeImage}
+                setImgData={setCropData}
+              />
               <div className="features__icons">
                 <div className="features__icons--body">
                   <span className="icon" onClick={pickImageHandler}>
@@ -161,10 +155,17 @@ const PostForm = React.memo(({ user }) => {
                       fill={previewUrl ? "#1D8CF8" : "#8B8B85"}
                     />
                   </span>
-                  <EmojyPicker handleChange={addEmojy} />
+                  <EmojyPicker
+                    handleChange={addEmojy}
+                    style={{
+                      top: "-20rem",
+                      left: "-20rem",
+                    }}
+                    className="emojy-picker"
+                  />
                   <GetLocation
                     location={location}
-                    handleLocation={city => {
+                    handleLocation={(city) => {
                       location ? setLocation(null) : setLocation(city);
                     }}
                   />
@@ -173,10 +174,10 @@ const PostForm = React.memo(({ user }) => {
             </div>
           </div>
           <button
-            disabled={isLoading}
+            disabled={loading}
             className="btn btn--contained1-primary mg-none"
           >
-            {isLoading ? "Posting...." : "Post"}
+            {loading ? "Posting...." : "Post"}
           </button>
         </form>
       </div>

@@ -1,6 +1,74 @@
+.order{
+  padding:0 2rem;
+  @include respond(phone){
+   padding:0 .8rem;
+      }
+}
+
 .post {
+   &__comments{
+       background: $second;
+       border-radius: 1rem;
+       padding:2rem;
+       margin-bottom: 10rem;
+        @include respond(phone){
+          padding:.6rem;
+        }
+       &__list{
+        margin-bottom: 2rem;
+        max-height:80vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+       }
+       &__item{
+           padding:1rem;
+           background:#333;
+           border-radius:1rem;
+           margin:0 1rem;
+           margin-bottom: 1rem;
+
+          .comment{
+            &__time{
+              font-size: 1.4rem; 
+              color:$text-color; 
+            }
+            &__content{
+              margin-bottom: 1rem;
+              p{
+                font-weight: 300;
+                font-size: 1.4rem;
+                color:$text-color;
+              }
+            }
+            &__user{
+              display: flex;
+              align-items: center;
+              margin-bottom: 1rem;
+              &--name{
+                font-size: 1.6rem;
+                font-weight:300;
+                color:#fff;
+                margin-left: 1rem;
+              }
+            &--img{
+              width:5rem;
+              height:5rem;
+              border-radius:2.5rem;
+              img{
+                width:5rem;
+              height:5rem;
+              border-radius:2.5rem;
+              object-fit: cover
+              }
+            }
+          }
+        }
+
+       }
+    }
   &__container {
-    margin-top: 10rem;
+    margin-top: 2rem;
   }
   width: 100%;
   margin: 2rem 0;
@@ -19,8 +87,22 @@
     &--img {
       width: 5rem;
       height: 5rem;
-      border-radius: 50%;
+      border-radius:2.5rem;
       margin-right: 0.6rem;
+      position: relative;
+        .userActive{
+        width: 1.4rem;
+        height:1.4rem;
+                border-radius: 1rem;
+                background: $success;
+                position: absolute;
+               bottom: 0;
+               right:0;}
+      img{
+         width: 5rem;
+      height: 5rem;
+      border-radius:2.5rem;
+      }
     }
     &--name {
       display: flex;
@@ -40,7 +122,7 @@
   }
   &__content {
     p {
-      padding: 0.5rem 2.5rem;
+      padding: 0rem 2.5rem 2rem;
       font-size: 1.7rem;
       font-weight: 300;
       color: #fff;
@@ -52,16 +134,29 @@
     padding: 2rem;
     align-items: center;
     justify-content: space-between;
-    &--like {
+    &__communication {
       display: flex;
       align-items: center;
+      &__item{
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+        transition: all .3s;
+        padding: .5rem 1rem;
+        border-radius: 1rem;
+
+        &:hover{
+          background: $hover;
+        }  
+      }
       .nol {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         color: #fff;
         margin-right: 0.6rem;
       }
       .icon {
         cursor: pointer;
+        margin-right: .8rem;
       }
     }
     &--time-left {
@@ -87,18 +182,105 @@
   }
   &__menu {
     cursor: pointer;
+    
+    .icon{
+      width: 4rem;
+    height:4rem;
+    transition: all .3s;
+    @include flex();
+    border-radius: 2rem;
+    svg{
+      width: 2rem !important;
+      height:2rem !important;
+    }
+    &:hover{
+      background: $hover;
+    }
+    }
+    
+
   }
   &__body {
     font-size: 0;
     img {
       object-fit: cover;
       width: 100%;
+      cursor: pointer;
     }
   }
 }
 .order {
-  @include respond(959px) {
-    order: 3 !important;
-  }
+ 
   margin: 0 auto !important;
+   @include respond(959px) {
+    margin-top: 4rem !important;
+  }
+}
+.post-placeholder{
+  background: $second;
+  width: 100%;
+    padding:3rem 4rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+     &__header{
+      display: flex;
+      align-items: center;
+    }
+    &__content{
+      margin:4rem;
+      div{
+        background: $hover;
+        height:1.5rem;
+        border-radius: 1rem;
+        &:not(:last-child){
+          margin-bottom: 2rem;
+        }
+      }
+       div:nth-child(1){
+        width:50%;
+       }
+       div:nth-child(2){
+        width:75%;
+       }
+       div:nth-child(3){
+        width:100%;
+       }
+    }
+    &__info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+      &__img{
+        width:6rem;
+      height:6rem;
+      background: $hover;
+      border-radius: 3rem;
+      margin-right: 1rem;
+      }
+      &__username{
+      width: 15rem;
+      height:1.5rem;
+      border-radius: 1rem;
+      background: $hover;
+      margin-bottom: 1rem;
+    }
+    &__tail{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__like{
+       width: 15rem;
+       height:1.5rem;
+       border-radius: 1rem;
+       background: $hover;    
+    }
+    &__time{
+       width: 15rem;
+      height:1.5rem;
+      border-radius: 1rem;
+      background: $hover;
+    }
+   
 }

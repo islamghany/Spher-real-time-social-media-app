@@ -4,33 +4,30 @@ import { useForm } from "react-hook-form";
 import EmailText from "../../shared/inputs/email";
 import PasswordText from "../../shared/inputs/password";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useAuth } from "./useAuth";
 
-const Login = ({ handleAuth }) => {
+const Login = () => {
   const { register, handleSubmit, errors } = useForm();
   const { isLoading, error, sendRequest } = useHttpClient();
-  const handleLogin = async data => {
+  const { handleGetin } = useAuth();
+  const handleLogin = async (data) => {
     try {
       const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL+"/users/login",
+        process.env.REACT_APP_BACKEND_URL + "/users/login",
         "POST",
         JSON.stringify({
-          ...data
+          ...data,
         }),
         {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }
       );
-      handleAuth(
-        responseData._id,
-        responseData.token,
-        responseData.username,
-        responseData.img
-      );
+      handleGetin(responseData);
     } catch (err) {
       console.log(err, error);
     }
   };
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     handleLogin(data);
   };
 
@@ -40,7 +37,7 @@ const Login = ({ handleAuth }) => {
         <h3>Login with Spher</h3>
       </div>
       <div className="form">
-        <form className="form__body" onSubmit={handleSubmit(onSubmit)}>
+        <form className="form__body port" onSubmit={handleSubmit(onSubmit)}>
           <div className="error-message">
             <div className="message">
               {error ? error || "something went wrong" : ""}
@@ -50,7 +47,7 @@ const Login = ({ handleAuth }) => {
           <PasswordText register={register} errors={errors.password} />
           <button
             disabled={isLoading}
-            className="btn btn--contained1-primary mg-none"
+            className="btn btn--contained2-primary mg-none"
           >
             {isLoading ? "Loading...." : "Login"}
           </button>

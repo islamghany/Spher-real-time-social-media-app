@@ -1,15 +1,30 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Slide from 'react-reveal/Slide';
 import {Link} from 'react-router-dom';
 import {useHttpClient} from '../../shared/hooks/http-hook';
 import {useDispatch,useSelector} from 'react-redux';
 import LoadindModal from './loading-modal'
-const PostModel=({closeModel,id})=>{
+import history from '../../history'
+import { CSSTransition } from 'react-transition-group';
+
+const PostModel=({path,children,title,id})=>{
  const { isLoading, error, sendRequest } = useHttpClient();
+ const [isOpen,setIsOpen]=useState(false);
  const dispatch = useDispatch();
  const token = useSelector(state=>state.isSignedIn)
+  const closeModal = ()=>{
+    if(isOpen){
+      setIsOpen(false);
+       document.body.style.overflowY='auto';
+    }
+  }
+  const openModal=()=>{
+    if(!isOpen){
+      setIsOpen(true);
+      document.body.style.overflowY='hidden';
+    }
+  }
  const deletePost= async ()=>{
-    console.log(id);
     try {
       await sendRequest(
        process.env.REACT_APP_BACKEND_URL+`/posts/${id}`,
@@ -19,40 +34,53 @@ const PostModel=({closeModel,id})=>{
      }
       );    
       dispatch({type:'DELETE_POST',payload:id});
-      closeModel();
+      console.log(id)
+      if(!path){
+        history.push('');
+    }
+    else{
+    dispatch({type:'DELETE_USER_POST',payload:id});
+    }
+    closeModal();
     } catch (err) {}
 }	
-console.log(error)
 return (
         <>
-		<div className="model__container">
-         <div className="model">
-                 <Slide collapse>
-            <div className="model__body" onClick={(e)=>e.stopPropagation()} >
-             <ul className="model__list">
-             	<li className="model__item">
-             		<Link to={
-                        `/posts/edit/${id}`
-                         }
+     <div style={{display:'inline-block'}} onClick={openModal}>{children}</div>
+      <CSSTransition
+        in={isOpen}
+        timeout={300}
+        classNames="modal"
+        unmountOnExit
+      >
+		<div className="modal__container" onClick={closeModal}>
+         <div className="modal">
+            <div className="modal__body" onClick={(e)=>e.stopPropagation()} >
+             <ul className="modal__list">
+             	<li className="modal__item">
+             		<Link onClick={closeModal} to={{
+                        pathname:`/posts/edit/${id}`,
+                        state:{title}
+                         }}
                          >
              		Edit Post
              		</Link>
              	</li>
-             	<li className="model__item delete" onClick={()=>{
+             	<li className="modal__item delete" onClick={()=>{
              		deletePost();
              			
              			
              	}}>
              		{isLoading ? 'Deleting...' :'Delete Post'}
              	</li>
-             	<li className="model__item" onClick={()=>closeModel()}>
+             	<li className="modal__item" onClick={closeModal}>
              		Cancel
              	</li>
              </ul>
             </div>
-            </Slide>
          </div>
 		</div>
+        </CSSTransition>
         {isLoading && <LoadindModal />}
         </>
 		)

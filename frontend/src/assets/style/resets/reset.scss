@@ -31,8 +31,20 @@ html {
    max-width:1350px;
    margin:0 auto;
 }
+h6{
+  color:$success;
+  font-size:1.6rem;
+  font-weight: 300;
+  padding-top: 2rem;
+}
 .screen{
   min-height: 100vh;
+}
+.no-more{
+  font-size: 2rem;
+  weight:300;
+  color:$text-color;
+  font-family: 'montserrat';
 }
 
 .show {
@@ -64,7 +76,8 @@ ul {
   list-style: none;
 }
 img {
-  //max-width: 100%;
+  max-width: 100%;
+      object-fit: cover;
   //display: block;
 }
 .text-center {
@@ -101,6 +114,9 @@ img {
 .mg-lf-0{
    margin-left: 0rem !important;
 }
+.mt-2{
+   margin-top: 2rem !important;
+}
 .mg-tp-2 {
   margin-top: 2rem !important;
 }
@@ -110,9 +126,15 @@ img {
 .mg-tp-10 {
   margin-top: 10rem !important;
 }
+.my-2{
+    margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+
+}
 
 img {
   max-width: 100%;
+  opacity: 1 !important;
 }
 .hidden {
   z-index: -1 !important;
@@ -142,4 +164,38 @@ hr {
   height: 100vh;
   @include flex();
 }
+.h2{
+  text-transform:capitalize;
+  font-size: 1.7rem;
+  color: #fff;
+  font-weight: 400;
+}
 
+.seprator{
+  margin:0 1.6rem;
+  border-top:1px solid $hover;
+  padding-top:.4rem;
+}
+button[disabled]{
+    cursor: not-allowed;
+    color: #818487;
+    border-color: #babdbe;
+    background: #e8e9e9;
+    box-shadow: none;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: $bg;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: $bg;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color:$hover;
+}
