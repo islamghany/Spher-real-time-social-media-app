@@ -6,11 +6,15 @@ const postSchema = new Schema({
 		type:String,
 	},
 	img:{
-		type: Buffer
+		type: String
 	},
 	location:{
 		type:String
 	},
+	publicId:{
+		type:String
+	},
+	comments:[{type:mongoose.Types.ObjectId,ref:'Comment'}],
 	liked:[{type: mongoose.Types.ObjectId}],
 	creator:{ type: mongoose.Types.ObjectId, required: true, ref:'User' },
 },{
